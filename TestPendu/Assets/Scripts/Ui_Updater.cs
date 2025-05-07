@@ -76,14 +76,20 @@ public class Ui_Updater : MonoBehaviour
     public void Save()
     {
         const int resultCount = 3;
-        for (int i = 0; i < resultCount; i++)
+        for (int i = resultCount - 1; i > 0; i--)
         {
-            PlayerPrefs.SetString($"nameP1_partie{i}", PlayerManager.SINGLETON.name1);
-            PlayerPrefs.SetString($"nameP2_partie{i}", PlayerManager.SINGLETON.name2);
-            PlayerPrefs.SetString($"mot_partie{i}", GameManager.SINGLETON.currentWord);
-            PlayerPrefs.SetString($"winner_partie{i}", GameManager.SINGLETON.winner);
-            PlayerPrefs.SetString($"looser_partie{i}", GameManager.SINGLETON.looser);
-            PlayerPrefs.Save();
+            PlayerPrefs.SetString($"nameP1_partie{i}", PlayerPrefs.GetString($"nameP1_partie{i - 1}", ""));
+            PlayerPrefs.SetString($"nameP2_partie{i}", PlayerPrefs.GetString($"nameP2_partie{i - 1}", ""));
+            PlayerPrefs.SetString($"mot_partie{i}", PlayerPrefs.GetString($"mot_partie{i - 1}", ""));
+            PlayerPrefs.SetString($"winner_partie{i}", PlayerPrefs.GetString($"winner_partie{i - 1}", ""));
+            PlayerPrefs.SetString($"looser_partie{i}", PlayerPrefs.GetString($"looser_partie{i - 1}", ""));
         }
+        PlayerPrefs.SetString($"nameP1_partie0", PlayerManager.SINGLETON.name1);
+        PlayerPrefs.SetString($"nameP2_partie0", PlayerManager.SINGLETON.name2);
+        PlayerPrefs.SetString($"mot_partie0", GameManager.SINGLETON.currentWord);
+        PlayerPrefs.SetString($"winner_partie0", GameManager.SINGLETON.winner);
+        PlayerPrefs.SetString($"looser_partie0", GameManager.SINGLETON.looser);
+
+        PlayerPrefs.Save();
     }
 }

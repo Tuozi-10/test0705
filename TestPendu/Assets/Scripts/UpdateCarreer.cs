@@ -25,13 +25,13 @@ public class UpdateCarreer : MonoBehaviour
 
     public void UpdateCareer()
     {
-        for (int i = 0; i < text.Length; i++)
+        for (int i = 0; i < text.Length && i < 3; i++)
         {
-            string winner = PlayerPrefs.GetString($"winner_partie{i + 1}");
-            string looser = PlayerPrefs.GetString($"looser_partie{i + 1}");
-            string mot = PlayerPrefs.GetString($"mot_partie{i + 1}");
-            
-            text[i].text = $"{winner} a gagné contre {looser} sur le mot {mot}";
+            string winner = PlayerPrefs.GetString($"winner_partie{i}");
+            string looser = PlayerPrefs.GetString($"looser_partie{i}");
+            string mot = PlayerPrefs.GetString($"mot_partie{i}");
+
+            text[i].text = $"{winner} a gagné contre {looser} sur le mot : {mot}";
         }
     }
 }
