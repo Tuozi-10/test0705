@@ -26,6 +26,8 @@ namespace Script.Manager
         [SerializeField] private GameObject prefabsLetter;
         [SerializeField] private GameObject prefabsLetterParents;
 
+        [SerializeField] private List<GameObject> listOfBodiesPart;
+
         private string wordToGuess;
 
         public List<TMP_Text> listOfLetterRef;
@@ -46,6 +48,9 @@ namespace Script.Manager
 
         [SerializeField] private GameObject wordHolderGO;
         [SerializeField] private GameObject wordGuesseurGO;
+
+        private int countBeforeDeath;
+        
         #endregion
 
         #region Initialisation
@@ -135,8 +140,7 @@ namespace Script.Manager
         }
 
         #endregion
-
-        //TODO create prefabs with Component TMP_TEXT then alpha = 0 and if good in foreach alpha  = 1 other tabassee him 
+        
         
         private void SetupWord()
         {
@@ -147,8 +151,28 @@ namespace Script.Manager
                 letterToAdd.text = (letter).ToString();
                 listOfLetterRef.Add(letterToAdd);
             }
+
+            foreach (var bodiesPart in listOfBodiesPart)
+            {
+                bodiesPart.SetActive(false);
+            }
         }
 
+        private void BadGuess()
+        {
+            countBeforeDeath++;
+            listOfBodiesPart[countBeforeDeath - 1].SetActive(true);
+            if (countBeforeDeath >= 6)
+            {
+                HandleDeath();
+            }
+        }
+
+        private void HandleDeath()
+        {
+            Debug.Log("You lose");
+        }
+        
         private bool DisplayWord(char targetLetter)
         {
             bool isLetterGood = false;
@@ -201,7 +225,7 @@ namespace Script.Manager
 
                     if (!goodGuess)
                     {
-                        
+                        BadGuess();
                     }
                     
                     break;
@@ -212,7 +236,7 @@ namespace Script.Manager
                     }
                     else
                     {
-                        
+                        BadGuess();   
                     }
                     break;
                 default:
