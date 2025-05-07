@@ -10,7 +10,7 @@ public class EndMatch : MonoBehaviour
 {
     [SerializeField] private TMP_Text WordTxt;
     [SerializeField] private TMP_Text WhoIsWinnerTxt;
-    [SerializeField] private PlayerLetter player;
+    [SerializeField] private Player player;
     [SerializeField] private List<Sprite> headSprites;
     [SerializeField] private Image headSprite;
     [SerializeField] private WinManager winManager;

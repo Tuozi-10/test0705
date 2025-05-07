@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WinManager : MonoBehaviour
 {
-    [SerializeField] private PlayerLetter player;
+    [SerializeField] private Player player;
     
     public void SaveMatchResult()
     {

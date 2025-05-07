@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerLetter : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private TMP_InputField LetterField;
     [SerializeField] private TMP_InputField WordField;
