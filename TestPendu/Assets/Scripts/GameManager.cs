@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //WTS = word to search
-    public string WTS;
+    public string wordToSearch;
     public string J1name = "J1";
     public string J2name = "J2";
     public bool isJ1turn = true;
@@ -19,5 +19,4 @@ public class GameManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(this);
     }
-
 }
