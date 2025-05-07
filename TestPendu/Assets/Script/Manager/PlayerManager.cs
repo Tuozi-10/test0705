@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ namespace Script.Manager
 
         [SerializeField] private List<GameObject> listOfBodiesPart;
 
-        private string wordToGuess;
+        public string wordToGuess;
 
         public List<TMP_Text> listOfLetterRef;
 
@@ -49,8 +50,11 @@ namespace Script.Manager
         [SerializeField] private GameObject wordHolderGO;
         [SerializeField] private GameObject wordGuesseurGO;
 
+        [SerializeField] private TMP_Text textEndWhoWin;
+
         private int countBeforeDeath;
-        
+
+        public string winner;
         #endregion
 
         #region Initialisation
@@ -69,7 +73,7 @@ namespace Script.Manager
 
         private void Start()
         {
-            DisplayText(textPlayerTurn,"PLAYER TURN : FIRST");
+            DisplayText(textPlayerTurn,"PLAYER TURN : FIRST, select a name");
             wordGuesseurGO.SetActive(false);
         }
 
@@ -85,7 +89,7 @@ namespace Script.Manager
             {
                 case PlayerTurn.PlayerOne:
                     players.nameFirstPlayer = nameHolder.text;
-                    DisplayText(textPlayerTurn,"PLAYER TURN : SECOND");
+                    DisplayText(textPlayerTurn,"PLAYER TURN : SECOND, select a name");
                     break;
                 case PlayerTurn.PlayerSecond:
                     players.nameSecondPlayer = nameHolder.text;
@@ -93,14 +97,16 @@ namespace Script.Manager
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
+            nameHolder.text = "";
+
             EndActualTurn();
             
             if (players is not { nameFirstPlayer: not null, nameSecondPlayer: not null }) return;
             var manager = GameManager.instance;
             if (manager != null) manager.CurrentGameState = GameManager.GameState.Game;
             wordHolderGO.SetActive(true);
-            DisplayText(textPlayerTurnInGame,"PLAYER TURN : FIRST");
+            DisplayText(textPlayerTurnInGame,$"PLAYER TURN : {players.nameFirstPlayer}, Choose a word");
                 
         }
 
@@ -132,16 +138,25 @@ namespace Script.Manager
         {
             if (worldHolder.text.Length < 1) return;
             wordToGuess = worldHolder.text;
+            
+            if (!wordToGuess.All(char.IsLetter))
+            {
+                return;
+            }
+
+            wordToGuess = wordToGuess.ToLower();
+
             wordHolderGO.SetActive(false);
             currentPlayerTurn = PlayerTurn.PlayerSecond;
-            DisplayText(textPlayerTurnInGame,"PLAYER TURN : SECOND");
+            DisplayText(textPlayerTurnInGame,$"PLAYER TURN : {players.nameSecondPlayer}");
             wordGuesseurGO.SetActive(true);
             SetupWord();
         }
 
         #endregion
         
-        
+        #region GamePlay
+
         private void SetupWord()
         {
             foreach (char letter in wordToGuess)
@@ -170,7 +185,7 @@ namespace Script.Manager
 
         private void HandleDeath()
         {
-            Debug.Log("You lose");
+            EndGame(false);
         }
         
         private bool DisplayWord(char targetLetter)
@@ -178,7 +193,6 @@ namespace Script.Manager
             bool isLetterGood = false;
             foreach (var letter in listOfLetterRef)
             {
-                Debug.Log($"{targetLetter} and {letter.text[0]}");
                 if (letter.text[0] == targetLetter)
                 {
                     letter.alpha = 1;
@@ -189,13 +203,24 @@ namespace Script.Manager
             return isLetterGood;
         }
 
+        private void EndGame(bool guesseurWin)
+        {
+            textEndWhoWin.text = guesseurWin ? $"{players.nameSecondPlayer} WON" : $"{players.nameFirstPlayer} WON";
+            
+            SaveManager.instance.Save();
+
+            GameManager.instance.CurrentGameState = GameManager.GameState.End;
+            
+            winner = guesseurWin ? players.nameSecondPlayer : players.nameFirstPlayer;
+    }
+        
         private void DisplayWorldWin()
         {
             foreach (var letter in listOfLetterRef)
             {
                 letter.alpha = 1;
             }
-            Debug.Log("You win");
+            EndGame(true);
         }
 
         private bool CheckForWin()
@@ -242,6 +267,12 @@ namespace Script.Manager
                 default:
                     return;
             }
+
+            wordGuesseur.text = "";
         }
+
+        #endregion
+        
+        
     }
 }
