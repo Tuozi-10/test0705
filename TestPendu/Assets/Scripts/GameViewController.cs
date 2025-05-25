@@ -8,6 +8,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+// j'ai beaucoup de mal à comprendre exactement ce que tu essais de faire ici :/ 
+// plusieurs pistes, ne mets que des
+// appels de fonctions dans les fonctions d'update,
+// split plus tes fonctions, ajoute des commentaires quand tu as des doutes sur l'évolution du code
+
 public class GameViewController : MonoBehaviour
 {
     [SerializeField] private TMP_Text wordToSearchText;
