@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
+// trop de choses dans les fonctions, il faudrait les découper
+// attention au formattage de ton script
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text player1Text;
