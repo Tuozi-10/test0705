@@ -2,23 +2,11 @@ using UnityEngine;
 
 namespace Script.Manager
 {
-    public class SaveManager : MonoBehaviour
+    // t'as meme pas besoin d'en faire un monobehaviour
+    // et c'est vite fait modulable, si t'avais 47 scores tu ferais à la main tous les 1_3 2_3 1_47 2_47 ?
+    public static class SaveManager
     {
-        public static SaveManager instance;
-        
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-        
-        public void Save()
+        public static void Save()
         {
             PlayerPrefs.SetString("namePlayer1_3",PlayerPrefs.GetString("namePlayer1_2"));
             PlayerPrefs.SetString("namePlayer2_3",PlayerPrefs.GetString("namePlayer2_2"));
@@ -34,10 +22,6 @@ namespace Script.Manager
             PlayerPrefs.SetString("namePlayer2_1",PlayerManager.instance.players.nameSecondPlayer);
             PlayerPrefs.SetString("word_1",PlayerManager.instance.wordToGuess);
             PlayerPrefs.SetString("win_1",PlayerManager.instance.winner);
-
-            
-            
-            
         }
     }
 }

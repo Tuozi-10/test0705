@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 namespace Script.Manager
 {
+    // ton game manager gère beaucoup trop de choses, hésite pas à déplacer du code dans des scripts qui
+    // gèrent qu'une partie de la logique, là t'as du porc, du poulet, de la laitue,
+    // et le kebab du voisin dans ton script
+    // au moins à minima un score manager
     public class GameManager : MonoBehaviour
     {
         #region Variables

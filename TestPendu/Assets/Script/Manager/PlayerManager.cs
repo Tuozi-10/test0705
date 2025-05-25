@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 namespace Script.Manager
 {
+    
+    // lui on peut l'appeller "TOUTLEGAMEPLAY.cs" nan? trooop de choses dedans
     public class PlayerManager : MonoBehaviour
     {
         #region Variable
@@ -207,7 +209,7 @@ namespace Script.Manager
         {
             textEndWhoWin.text = guesseurWin ? $"{players.nameSecondPlayer} WON" : $"{players.nameFirstPlayer} WON";
             
-            SaveManager.instance.Save();
+            SaveManager.Save();
 
             GameManager.instance.CurrentGameState = GameManager.GameState.End;
             
