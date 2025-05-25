@@ -3,6 +3,7 @@ using System.Text;
 
 public static class TextTools
 {
+    // au moins c'est assumé haha
     // Mostly AI generated.
     public static string RemoveAccents(string input)
     {

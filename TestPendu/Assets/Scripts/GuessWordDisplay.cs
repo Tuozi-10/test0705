@@ -9,6 +9,8 @@ public class GuessWordDisplay : MonoBehaviour
     
     #endregion
 
+    // attention au double naming ici et dans l'init, ca rend confusant l'utilisation
+    // de word dans la fonction Init, surtout si la fonction devient longue apres
     private string word;
     private char[] guessArray;
 
@@ -19,6 +21,7 @@ public class GuessWordDisplay : MonoBehaviour
         UpdateGuessWord();
     }
 
+    // Très bonne feature !
     public void AddLetterToGuessWord(char guess)
     {
         for (var l = 0; l < word.Length; l++)
