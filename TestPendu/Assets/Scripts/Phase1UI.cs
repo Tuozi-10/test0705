@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+// pas fan du naming phase 1 / 2 , mais l'idée de séparer en deux parties est bien
+// pourquoi t'as un formattage avec des espaces partout?
 public class Phase1UI : MonoBehaviour
 {
     public RectTransform helpMenuRect;

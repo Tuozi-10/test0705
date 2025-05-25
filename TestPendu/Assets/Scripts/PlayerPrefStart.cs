@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// manque un bon bout de la partie score, c'est dommage :(
 public class PlayerPrefStart : MonoBehaviour
 {
     

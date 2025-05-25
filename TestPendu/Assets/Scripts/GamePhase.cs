@@ -136,6 +136,7 @@ public class GamePhase : MonoBehaviour
         
     }
 
+    // waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, t'en fais des trucs sales là dedans, et en update
     private void Update()
     {
         if (countDown == 10)
