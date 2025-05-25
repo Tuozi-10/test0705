@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour
 
     void CheckWin()
     {
+        // hésite pas à utiliser des constantes pour éviter les chiffres magique 6 et 5 
+        // par exemple private const int MaxErrors = 6 et private const int MenuLooseScene = 5
         if (numberOfTurn >= 6)
         {
             UpdatePlayerPrefs(playerOneName, playerTwoName);
@@ -122,6 +124,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // c'est dommage le 2 en dur, y'a possibilité de rendre le score plus modulable avec des params 
     private void UpdatePlayerPrefs(string winnerName, string looserName)
     {
         for (int i = 0; i < 2; i++)

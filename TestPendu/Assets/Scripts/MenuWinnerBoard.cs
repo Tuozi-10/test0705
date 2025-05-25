@@ -9,6 +9,8 @@ public class MenuWinnerBoard : MonoBehaviour
     [SerializeField] private TMP_Text[] tabText;
     private void Awake()
     {
+        // attention aux multiples concaténations ici, tu fais pas mal d'allocs,
+        // peut être qu'il vaudrait mieux faire de l'interpolation
         for (int i = 0; i < tabText.Length; i++)
         {
             string key1 = "winner" + (i + 1); 

@@ -28,6 +28,9 @@ public class InputFieldGet : MonoBehaviour
             GameManager.INSTANCE.Play(Convert.ToChar(Format(inputField.text)));
         }
     }
+
+    // je te conseille de générer qu'une fois ta regex et de la réutiliser pour éviter des allocs inutiles
+    private readonly Regex lettersRegex = new Regex("[^a-z]");
     
     private string Format(string input)
     {
@@ -40,7 +43,7 @@ public class InputFieldGet : MonoBehaviour
                 stringBuilder.Append(c);
         }
         string withoutAccents = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        string onlyLetters = Regex.Replace(withoutAccents, "[^a-z]", "");
+        string onlyLetters = lettersRegex.Replace(withoutAccents,  "");
         return onlyLetters;
     }
 }
