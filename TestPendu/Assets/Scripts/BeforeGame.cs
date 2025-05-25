@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BeforeGame : MonoBehaviour
 {
+    // attention au naming inconsistant ( des fois avec majuscule au début, des fois sans )
+    
     [SerializeField] private TMP_Text text;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameManager GM;
@@ -18,6 +20,7 @@ public class BeforeGame : MonoBehaviour
         text.text = "Joueur1, entrez votre nom.";
     }
 
+    // il se passe trop de choses dans ton update, hésite pas à dispatcher dans des fonctions pour clarifier
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -41,7 +44,7 @@ public class BeforeGame : MonoBehaviour
             inputField.text = null;
         }
     }
-
+// attention à l'inconsistance sur tes noms de fonctions, parfois en majuscule parfois non
     void changeJ1Name()
     {
         GM.J1Name = inputField.text;
@@ -54,6 +57,8 @@ public class BeforeGame : MonoBehaviour
         J2NameChoosed = true;
         text.text = GM.J1Name + ", choisissez le mot à faire deviner.";
     }
+    // cette fonction fait bien trop de choses, hésites pas à splitter pour éviter ca
+    // in fine, ta fonction ne choisit pas un word, et ca aide pas à suivre ta logique
     void chooseWord()
     {
         for (int i = 0; i < inputField.text.Length; i++)

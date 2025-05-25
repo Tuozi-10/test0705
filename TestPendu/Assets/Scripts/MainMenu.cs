@@ -79,6 +79,7 @@ public class MainMenu : MonoBehaviour
             string num = i.ToString();
             if (PlayerPrefs.HasKey("J1Name" + num))
             {
+                // oublie pas d'utiliser l'interpolation dans ces cas là, pour éviter de générer x strings avec les +
                 textScore[i-1].text = "Player 1 : " + PlayerPrefs.GetString("J1Name" + num)+ " chose the word : " + 
                                       PlayerPrefs.GetString("Word" + num)+ " Player 2 : " + 
                                       PlayerPrefs.GetString("J2Name" + num) + " has " + 

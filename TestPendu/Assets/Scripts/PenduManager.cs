@@ -18,6 +18,7 @@ public class PenduManager : MonoBehaviour
     [SerializeField] private GameObject EndOfGameButton;
     private int MissedTrys = 0;
 
+    // Beaucouuuup trop de logique dans ton update
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
