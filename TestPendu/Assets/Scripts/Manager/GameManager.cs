@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // pas giga robuste, tu vas faire sauter cette instance dans le cas
+        // oû elle existe déja, et l'assigner à l'objet détruit -> du coup, instance null, null ref, fin des haricots
         if (Instance)
         {
             Destroy(gameObject);

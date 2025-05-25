@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private int maxBodyPart;
     private PlayerState state;
 
+    // attention au naming, j'suppose que tu voulais dire hasWin?
+    // là on croirait que c'est "en tant que victoire ou défaite"
     public bool asWin;
     public bool asLose;
 

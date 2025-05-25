@@ -6,6 +6,13 @@ public class WinManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     
+    // tu pourras découper cette fonction en deux fonctions,
+    // une pour décaller les scores, une pour ajouter le nouveau score
+    // ou ajouter des commentaires pour séparer la partie décallage et celle d'ajout pour la rendre plus facile à la lecture
+    // pour le 2, évite au maximum les chiffres magiques,
+    // tu peux utiliser par exemple une constante ( private const int MaxScore = 2)
+    // ou pour le rendre plus modulable,// tu peux par exemple
+    // le faire passer en parametre de la fonction ( public void SaveMatchResult(int maxScoreCount) )
     public void SaveMatchResult()
     {
         string winner = player.asWin ? GameManager.Instance.PlayerTwo : GameManager.Instance.PlayerOne;

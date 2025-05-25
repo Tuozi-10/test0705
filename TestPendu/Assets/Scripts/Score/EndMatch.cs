@@ -8,6 +8,12 @@ using UnityEngine.UI;
 
 public class EndMatch : MonoBehaviour
 {
+    // attention à garder la meme nomenclature dans le projet
+    // Là tu as des private avec majuscule au début, d'autres sans, c'est important de garder la même logique partout
+    // Je te conseille par exemple,
+    // les private tu commences par m_ ou _,
+    // les publics la première lettre en minuscule,
+    // et les consts premiere lettre en majuscule
     [SerializeField] private TMP_Text WordTxt;
     [SerializeField] private TMP_Text WhoIsWinnerTxt;
     [SerializeField] private Player player;

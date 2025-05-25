@@ -20,6 +20,7 @@ public class LetterSlot : MonoBehaviour
         Letter = char.ToUpper(c);
         letterText.text = Letter.ToString();
         coverImage.enabled = true;
+        // wow, c'est pour faire quoi ca ?
         LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
     }
 

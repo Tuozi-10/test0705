@@ -7,6 +7,8 @@ public class ScoreBoard : MonoBehaviour
 {
     [SerializeField] private Transform container;
     [SerializeField] private ScoreDisplay scoreDisplayPrefab;
+    
+    // si je suis bien ta logique, ici c'est parametrable, mais pas dans le winManager, du coup, c'est pas vraiment paramétrable
     [SerializeField] private int maxScoreDisplay = 3;
 
     public void initScore(int numberScoreDisplay)

@@ -21,6 +21,7 @@ public class ScoreDisplay : MonoBehaviour
         }
         else
         {
+            // dommage de détruire, tu pourrais peut etre juste désactiver pour éviter de recréer ?
             Destroy(gameObject);
         }
         

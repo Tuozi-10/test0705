@@ -19,6 +19,8 @@ public class ChoseWord : MonoBehaviour
     [SerializeField] private bool choseWord;
     private int playerTurn;
     
+    // pas sur de bien comprendre la logique du playerturn == 3 ou > 1 ou machin, c'est pas giga évident
+    
     private void Start()
     {
         validateButton.gameObject.SetActive(false);
@@ -67,7 +69,7 @@ public class ChoseWord : MonoBehaviour
     {
         playerTurn++;
         SwitchPlayerChoseName();
-        if (playerTurn >= 3)
+        if (playerTurn >= 3) // là par exemple, aucune idée de ce que veut dire >= 3
         {
             SwitchToChoseWord();
         }
