@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// trop de get component évitables
+// trop de code dans un seul script, hésite pas à splitter
+// néanmoins, la logique est robuste et c'est bien séparé en différentes méthodes
+
 public class GameManager : MonoBehaviour
 {
     List<string> warhammerWords = new List<string>
@@ -21,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("Initial Canvas")] 
     public GameObject initialCanvasReference;
     public GameObject promptText;
+    // tu pourrais directement utiliser le type InputField pour éviter les get component
     public GameObject player1NameInput, player2NameInput;
 
     [Header("Game Canvas")] 
