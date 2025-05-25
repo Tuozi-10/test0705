@@ -28,12 +28,7 @@ public class PenduGame : MonoBehaviour
     }
     private GameState state;
 
- 
-    private string player1Name = string.Empty;
-    private string player2Name = string.Empty;
-    private string setterName = string.Empty;
-    private string guesserName = string.Empty;
-    private string secretWord = string.Empty;
+
     private string displayWord = string.Empty;
     
     private int maxFail = 6;
@@ -43,32 +38,22 @@ public class PenduGame : MonoBehaviour
     
     private const string ResultsKey = "GameResults";
     
-    public string player1NameString
-    {
-        get { return player1Name; }
-    }
-    
-    public string player2NameString
-    {
-        get { return player2Name; }
-    }
-    
-    public string setterNameString
-    {
-        get { return setterName; }
-    }
-    
-    public string GuesserNameString
-    {
-        get { return guesserName; }
-    }
+    public string player1NameString { get; private set; } = string.Empty;
 
-    public string SecretWord  => secretWord;
+    public string player2NameString { get; private set; } = string.Empty;
+
+    public string setterNameString { get; private set; } = string.Empty;
+
+    public string GuesserNameString { get; private set; } = string.Empty;
+
+    public string SecretWord { get; private set; } = string.Empty;
+
     void Awake()
     {
         enabled = false;
     }
 
+    // ton enable est beaucoup trop velu, hésite pas à le couper en diverses fonctions de reset ( ResetTexts, ResetGameObjects, .... )
     void OnEnable()
     {
         inputField.gameObject.SetActive(true);
@@ -82,11 +67,11 @@ public class PenduGame : MonoBehaviour
        //on set ou reset tout les text vide
         state = GameState.EnterName1;
         
-        player1Name   = string.Empty;
-        player2Name   = string.Empty;
-        setterName    = string.Empty;
-        guesserName   = string.Empty;
-        secretWord    = string.Empty;
+        player1NameString   = string.Empty;
+        player2NameString   = string.Empty;
+        setterNameString    = string.Empty;
+        GuesserNameString   = string.Empty;
+        SecretWord    = string.Empty;
         displayWord   = string.Empty;
         
         failCount = 0;
@@ -121,6 +106,8 @@ public class PenduGame : MonoBehaviour
         
     }
 
+    // ton update ne devrait pas avoir de logique, seulement appeller des fonctions 
+    // Là par exemple, pour améliorer, tu pourrais avoir une fonction UpdateState, et des sous fonctions UpdateStateEnterName, etc
     void Update()
     {
         switch (state)
@@ -129,7 +116,7 @@ public class PenduGame : MonoBehaviour
             case GameState.EnterName1:
                 if (Input.GetKeyDown(KeyCode.Return) && inputField.text.Length > 0) 
                 {
-                    player1Name = inputField.text;
+                    player1NameString = inputField.text;
                     inputField.text = string.Empty;
                     
                     //meme chose pour le j2
@@ -141,9 +128,9 @@ public class PenduGame : MonoBehaviour
             case GameState.EnterName2:
                 if (Input.GetKeyDown(KeyCode.Return) && inputField.text.Length > 0)
                 {
-                    player2Name = inputField.text;
+                    player2NameString = inputField.text;
                     inputField.text = string.Empty;
-                    promptText.text = $"Qui entre le mot ? (1 = {player1Name}, 2 = {player2Name})";
+                    promptText.text = $"Qui entre le mot ? (1 = {player1NameString}, 2 = {player2NameString})";
                     state = GameState.ChooseRole;
                 }
                 break;
@@ -152,17 +139,17 @@ public class PenduGame : MonoBehaviour
             case GameState.ChooseRole:
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
                 {
-                    setterName = player1Name;
-                    guesserName = player2Name;
+                    setterNameString = player1NameString;
+                    GuesserNameString = player2NameString;
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
                 {
-                    setterName = player2Name;
-                    guesserName = player1Name;
+                    setterNameString = player2NameString;
+                    GuesserNameString = player1NameString;
                 }
-                if (!string.IsNullOrEmpty(setterName)) //le setter entre le mot secret
+                if (!string.IsNullOrEmpty(setterNameString)) //le setter entre le mot secret
                 {
-                    promptText.text = $"({setterName}) Entrez le mot :";
+                    promptText.text = $"({setterNameString}) Entrez le mot :";
                     inputField.contentType = TMP_InputField.ContentType.Password;//on le cache grace a password
                     inputField.text = string.Empty;
                     inputField.ActivateInputField();
@@ -177,13 +164,13 @@ public class PenduGame : MonoBehaviour
                     string rawInput = inputField.text;
                     if (System.Text.RegularExpressions.Regex.IsMatch(rawInput, "^[A-Z]+$"))
                     {
-                        secretWord = rawInput.ToUpper(); // transformer en majuscules
-                        displayWord = new string('_', secretWord.Length); // remplacer chaque caractère par '_'
+                        SecretWord = rawInput.ToUpper(); // transformer en majuscules
+                        displayWord = new string('_', SecretWord.Length); // remplacer chaque caractère par '_'
                         wordDisplayText.text = displayWord;
                         failCount = 0;
                         errorText.text = $"Erreurs : {failCount}/{maxFail}";
 
-                        promptText.text = $"{guesserName}, devinez des lettres :";
+                        promptText.text = $"{GuesserNameString}, devinez des lettres :";
                         inputField.gameObject.SetActive(false);
                         state = GameState.Guessing;
                     }
@@ -211,13 +198,13 @@ public class PenduGame : MonoBehaviour
                                 continue;
 
                             guessedLetters.Add(letter); // enregistrer la tentative
-                            if (secretWord.Contains(letter.ToString()))
+                            if (SecretWord.Contains(letter.ToString()))
                             {
                                 // relever toute les occurrence de la lettre
                                 char[] chars = displayWord.ToCharArray();
-                                for (int i = 0; i < secretWord.Length; i++)
+                                for (int i = 0; i < SecretWord.Length; i++)
                                 {
-                                    if (secretWord[i] == letter)
+                                    if (SecretWord[i] == letter)
                                     {
                                         chars[i] = letter;
                                     }
@@ -231,7 +218,7 @@ public class PenduGame : MonoBehaviour
                                 // Vérifier la victoire
                                 if (!displayWord.Contains("_"))
                                 {
-                                    promptText.text = $"{guesserName} a gagné, quel bg !";
+                                    promptText.text = $"{GuesserNameString} a gagné, quel bg !";
                                     state = GameState.Ended;
                                     if (GameManager.instance.movedToA == false)
                                     {
@@ -250,7 +237,7 @@ public class PenduGame : MonoBehaviour
                                 // verifier la défaite
                                 if (failCount >= maxFail)
                                 {
-                                    promptText.text = $"vous etes pas très fort. Le mot était {secretWord}.";
+                                    promptText.text = $"vous etes pas très fort. Le mot était {SecretWord}.";
                                     state = GameState.Ended;
                                     OnGameEnd(false);
                                 }
@@ -280,6 +267,8 @@ public class PenduGame : MonoBehaviour
         }
     }
     
+    // pareil, là tu devrais avoir des sous fonctions pour sauvegarder, etc,
+    // pour pouvoir potentiellement aussi l'appeller d'ailleurs si besoin et éviter du dupplicata 
     private void OnGameEnd(bool guesserWon) //on prend par défaut le guesser comme codition de victoire
     {
         if (GameManager.instance.movedToA == false)
@@ -287,7 +276,7 @@ public class PenduGame : MonoBehaviour
             GameManager.instance.DisplayScore();
         }
         
-        string msg = guesserWon ? $"{guesserName} a trouver le mot de {setterName} : {secretWord}" : $"{guesserName} n'a pas trouver le mot de {setterName} : {secretWord}";
+        string msg = guesserWon ? $"{GuesserNameString} a trouver le mot de {setterNameString} : {SecretWord}" : $"{GuesserNameString} n'a pas trouver le mot de {setterNameString} : {SecretWord}";
 
         // on recupper gameresult
         string raw = PlayerPrefs.GetString(ResultsKey, "");
@@ -326,6 +315,7 @@ public class PenduGame : MonoBehaviour
 
 
 
+    // la fête commence ?
     public void StartParty()
     {
         enabled = true;

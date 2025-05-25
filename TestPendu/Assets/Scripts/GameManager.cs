@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+// chef ?
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
 
+
+// Il se passe BEAUCOUP trop de choses dans ton script, c'est dommage
+// Attention au Linq
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -14,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreboardText;
     [SerializeField] private TMP_Text resultText;
     
+    // attention au franglish
     [SerializeField] private GameObject playBouton;
     [SerializeField] private GameObject resetBouton;
     [SerializeField] private GameObject endBouton;
