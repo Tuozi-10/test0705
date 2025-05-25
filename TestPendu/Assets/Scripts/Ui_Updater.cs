@@ -38,7 +38,7 @@ public class Ui_Updater : MonoBehaviour
     public string GetInputLetter()
     {
         string input = LetterArea.text.ToLower();
-        PlayerSaves.Instance.SaveGuess(input);
+        PlayerSaves.SaveGuess(input);
         return input;
     }
     

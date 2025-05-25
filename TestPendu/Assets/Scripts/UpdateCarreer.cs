@@ -11,7 +11,7 @@ public class UpdateCarreer : MonoBehaviour
     public TextMeshProUGUI[] text;
     public bool isExit = false;
 
-
+    // pense à nettoyer les fonctions inutiles des monobehaviours pour éviter des calls inutiles
     private void Start()
     {
        

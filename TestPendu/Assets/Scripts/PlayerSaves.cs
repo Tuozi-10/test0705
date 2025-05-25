@@ -1,26 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerSaves : MonoBehaviour
+// tu pourrais te passer d'instances et behaviours ici
+public static class PlayerSaves
 {
-    public static PlayerSaves Instance;
 
-    public List<string> guesses = new();
+    public static List<string> guesses = new();
 
-    void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    public void SaveGuess(string guess)
+    public static void SaveGuess(string guess)
     {
         if (guess != " " || guess != "")
         {
@@ -29,7 +16,7 @@ public class PlayerSaves : MonoBehaviour
         }
     }
 
-    public void ResetGuesses()
+    public static void ResetGuesses()
     {
         guesses.Clear();
     }

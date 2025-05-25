@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// Ton gameManager fait tout et n'importe quoi, j'ai du mal à saisir ce qu'il est supposé avoir comme rôle chez toi
 public class GameManager : MonoBehaviour
 {
     [SerializeField]private List<string> words = new();
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // mais du coup, dans le cas oû le start a chié, t'es softlock nan? j'crois avoir eu ca sur ma relance
         if (PlayerManager.SINGLETON.playerNames.Count < 2)
         {
             Debug.LogError("Il faut deux joueurs pour commencer !");
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"Tour de {currentPlayer}.");
     }
-
+// C'est beaucouppp trop long, fais des sous fonctions, ta fonction fait du café, le repassage, et les courses en même temps
     public void LetterCheck()
     {
         string input = Ui_Updater.SINGLETON.GetInputLetter();
